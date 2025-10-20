@@ -78,6 +78,7 @@ const UserListItem = memo(function UserListItem({
       payload: { userId: user.id },
     } satisfies UserSelectedAction);
   };
+
   return (
     <li key={user.id} className="py-2" onClick={handleUserClick}>
       <span className="hover:underline cursor-pointer">{user.name}</span>
@@ -87,7 +88,9 @@ const UserListItem = memo(function UserListItem({
 
 function SelectedUser({ userId }: { userId: UserId }) {
   const user = useAppSelector((state) => state.users.entities[userId]);
+
   const dispatch = useAppDispath();
+
   const handleBackButtonClick = () => {
     dispatch({
       type: "userRemoveSelected",
