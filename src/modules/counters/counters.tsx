@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../../shared/redux";
 import {
   CounterId,
   selectCounter,
-  DecrementAction,
-  IncrementAction,
+  decrementAction,
+  incrementAction,
 } from "./counters.slice";
+import { useDispatch } from "react-redux";
 
 export function Counters() {
   return (
@@ -26,13 +26,13 @@ export function Counter({ counterId }: { counterId: CounterId }) {
     <div className="flex flex-row items-center justify-center gap-5 ">
       counter {counterState?.counter}
       <button
-        onClick={() => dispatch(IncrementAction({ counterId }))}
+        onClick={() => dispatch(incrementAction({ counterId }))}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         increment
       </button>
       <button
-        onClick={() => dispatch(DecrementAction({ counterId }))}
+        onClick={() => dispatch(decrementAction({ counterId }))}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         decriment

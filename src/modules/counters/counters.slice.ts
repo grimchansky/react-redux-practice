@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { AppState } from "../../store";
+import { AppState } from "../../shared/redux";
 
 type CounterState = {
   counter: number;
@@ -8,34 +8,34 @@ export type CounterId = string;
 
 type CountersState = Record<CounterId, CounterState | undefined>;
 
-export const IncrementAction = createAction<{
+export const incrementAction = createAction<{
   counterId: CounterId;
-}>("counters/increment");
+}>("countres/increment");
 
-export const DecrementAction = createAction<{
+export const decrementAction = createAction<{
   counterId: CounterId;
-}>("counters/decrement");
+}>("countres/decrement");
 
-const initialCountersState: CountersState = {};
+const initialCounterState: CounterState = { counter: 0 };
+const initialCountresState: CountersState = {};
 
 export const countersReducer = createReducer(
-  initialCountersState,
+  initialCountresState,
   (builder) => {
-    builder.addCase(IncrementAction, (state, action) => {
+    builder.addCase(incrementAction, (state, action) => {
       const { counterId } = action.payload;
       if (!state[counterId]) {
-        state[counterId] = { counter: 0 };
+        state[counterId] = initialCounterState;
       }
       state[counterId].counter++;
     });
-    builder.addCase(DecrementAction, (state, action) => {
+    builder.addCase(decrementAction, (state, action) => {
       const { counterId } = action.payload;
       if (!state[counterId]) {
-        state[counterId] = { counter: 0 };
+        state[counterId] = initialCounterState;
       }
-      state[counterId].counter--;
+      state[counterId].counter++;
     });
-    // default уже по-умолчанию
   }
 );
 
